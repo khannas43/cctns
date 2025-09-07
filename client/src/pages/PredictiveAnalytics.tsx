@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { MapContainer, TileLayer, CircleMarker, Popup, Tooltip } from 'react-leaflet'
+import type { ComponentType } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as ChartTooltip, Legend, BarChart, Bar } from 'recharts'
 import 'leaflet/dist/leaflet.css'
 import { supabase } from '../lib/supabase'
@@ -840,10 +841,15 @@ export default function PredictiveAnalytics() {
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-lg font-semibold mb-4">Karnataka Drug Activity Risk Map</h3>
             <div style={{ height: '600px', width: '100%' }}>
-              <MapContainer center={[15.3173, 75.7139]} zoom={7} style={{ height: '100%', width: '100%' }}>
-                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
+              {(() => {
+                const AnyMapContainer = MapContainer as unknown as ComponentType<any>
+                const AnyTileLayer = TileLayer as unknown as ComponentType<any>
+                const AnyCircleMarker = CircleMarker as unknown as ComponentType<any>
+                return (
+                  <AnyMapContainer center={[15.3173, 75.7139]} zoom={7} style={{ height: '100%', width: '100%' }}>
+                    <AnyTileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
                 {riskData.districts.map((district: any) => (
-                  <CircleMarker
+                  <AnyCircleMarker
                     key={district.id}
                     center={[district.latitude, district.longitude]}
                     radius={Math.max(10, district.risk_scores.overall / 3)}
@@ -871,9 +877,11 @@ export default function PredictiveAnalytics() {
                         Risk: {district.risk_level} ({district.risk_scores.overall})
                       </div>
                     </Tooltip>
-                  </CircleMarker>
+                  </AnyCircleMarker>
                 ))}
-              </MapContainer>
+                  </AnyMapContainer>
+                )
+              })()}
             </div>
           </div>
         )}
