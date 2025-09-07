@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import ReactFlow, {
   Background,
   Controls,
@@ -7,6 +7,7 @@ import ReactFlow, {
   useEdgesState,
   useNodesState,
   ConnectionMode,
+  MarkerType,
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { supabase } from '../lib/supabase'
@@ -141,7 +142,7 @@ export default function InteractiveNetworkGraph({ entityId, onClose }: Interacti
           },
           animated: (edge.weight || 0) >= 3,
           style: { strokeWidth: Math.max(1, edge.weight || 1) },
-          markerEnd: { type: 'arrowclosed', width: 20, height: 20, color: (edge.weight || 0) >= 3 ? '#EF4444' : '#6B7280' },
+          markerEnd: { type: MarkerType.ArrowClosed, width: 20, height: 20, color: (edge.weight || 0) >= 3 ? '#EF4444' : '#6B7280' },
         }))
 
         // eslint-disable-next-line no-console

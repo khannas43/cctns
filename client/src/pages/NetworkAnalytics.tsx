@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { fetchNetworkEntities, fetchNetworkRelationships } from '../lib/api'
@@ -14,10 +14,11 @@ type Entity = {
 }
 
 type Relationship = {
-  id: string
+  id?: string
   source: string
   target: string
-  strength?: number
+  label?: string
+  weight?: number
 }
 
 export default function NetworkAnalytics() {

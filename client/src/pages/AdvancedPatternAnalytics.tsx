@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { ResponsiveContainer, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar, PieChart, Pie, Cell } from 'recharts'
+import { useEffect, useState } from 'react'
+import { ResponsiveContainer, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, BarChart, Bar } from 'recharts'
 import { supabase } from '../lib/supabase'
 
 export default function AdvancedPatternAnalytics() {
@@ -77,7 +77,7 @@ export default function AdvancedPatternAnalytics() {
           { priority: 'MEDIUM', action: 'Increase monitoring on rapidly expanding networks.' },
         ],
       }
-      setPatternData((prev) => prev || fallbackPatterns)
+      setPatternData((prev: any) => prev || fallbackPatterns)
 
       const freq = { High: 0, Medium: 0, Low: 0 }
       for (const r of relsArr) {
@@ -98,7 +98,7 @@ export default function AdvancedPatternAnalytics() {
           dormant_relationships: 0,
         },
       }
-      setCommunicationData((prev) => prev || fallbackComms)
+      setCommunicationData((prev: any) => prev || fallbackComms)
 
       const nodeById = new Map<string, any>(entitiesArr.map((e) => [String(e.id), e]))
       const nodes = Array.from(degree.entries())
@@ -131,7 +131,7 @@ export default function AdvancedPatternAnalytics() {
         critical_nodes: nodes,
         vulnerability_assessment: assessment,
       }
-      setVulnerabilityData((prev) => prev || fallbackVuln)
+      setVulnerabilityData((prev: any) => prev || fallbackVuln)
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error('Advanced analytics fallback failed:', e)

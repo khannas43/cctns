@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react'
+import { useEffect, useState, useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ReactFlow, {
   useNodesState,
@@ -7,7 +7,7 @@ import ReactFlow, {
   Controls,
   MiniMap,
   Panel,
-  
+  MarkerType,
 } from 'reactflow'
 import type { ReactFlowInstance } from 'reactflow'
 import 'reactflow/dist/style.css'
@@ -129,7 +129,7 @@ export default function NetworkVisualization() {
           type: 'smoothstep',
           animated: (e.weight || 0) > 3,
           style: { strokeWidth: Math.max(2, e.weight || 1), stroke: (e.weight || 0) > 3 ? '#EF4444' : '#6B7280' },
-          markerEnd: { type: 'arrowclosed', color: (e.weight || 0) > 3 ? '#EF4444' : '#6B7280' },
+          markerEnd: { type: MarkerType.ArrowClosed, color: (e.weight || 0) > 3 ? '#EF4444' : '#6B7280' },
         }))
 
         setNodes(transformedNodes)

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { MapContainer, TileLayer, CircleMarker, Popup, Tooltip } from 'react-leaflet'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as ChartTooltip, Legend, BarChart, Bar } from 'recharts'
 import 'leaflet/dist/leaflet.css'
@@ -165,14 +164,14 @@ const QuickReferencePanel: React.FC = () => {
 }
 
 export default function PredictiveAnalytics() {
-  const navigate = useNavigate()
+  // navigate not needed in this component
   const [riskData, setRiskData] = useState<RiskData | null>(null)
   const [temporalData, setTemporalData] = useState<TemporalData | null>(null)
   const [hotspotsData, setHotspotsData] = useState<HotspotsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<'overview' | 'map' | 'trends' | 'hotspots'>('overview')
   const [karnatakaRiskData, setKarnatakaRiskData] = useState<any | null>(null)
-  const [mapBounds] = useState({ north: 18.4, south: 11.5, east: 78.6, west: 74.0 })
+  // map bounds not used currently
 
   const karnatakaDistricts: Record<string, { lat: number; lng: number }> = {
     'Bangalore Urban': { lat: 12.9716, lng: 77.5946 },
@@ -289,13 +288,7 @@ export default function PredictiveAnalytics() {
         return acc
       }, [])
   }
-  function normalizeName(name: string): string {
-    return (name || '')
-      .toLowerCase()
-      .trim()
-      .replace(/[-_]/g, ' ')
-      .replace(/\s+/g, ' ')
-  }
+  // duplicate normalizeName removed above
   function isKarnatakaDistrictName(name: string): boolean {
     return acceptedSet.has(normalizeName(name || ''))
   }
@@ -579,7 +572,7 @@ export default function PredictiveAnalytics() {
         const seasonOf = (m: number) => (m === 12 || m <= 2 ? 'Winter' : m <= 5 ? 'Summer' : m <= 9 ? 'Monsoon' : 'Post-monsoon')
         const seasonAgg = new Map<string, { sum: number; count: number }>()
         for (const pt of series) {
-          const [y, m] = pt.month.split('-')
+          const [, m] = pt.month.split('-')
           const season = seasonOf(Number(m))
           const agg = seasonAgg.get(season) || { sum: 0, count: 0 }
           agg.sum += pt.cases
@@ -739,7 +732,7 @@ export default function PredictiveAnalytics() {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {riskData.districts.map((district: any) => (
-                      <React.Fragment key={district.id}>
+                      <>
                         <tr>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center">
@@ -789,7 +782,7 @@ export default function PredictiveAnalytics() {
                             </td>
                           </tr>
                         )}
-                      </React.Fragment>
+                      </>
                     ))}
                   </tbody>
                 </table>
