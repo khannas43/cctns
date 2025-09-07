@@ -1,0 +1,7 @@
+node_modules
+dist
+.env
+.DS_Store
+coverage
+
+node_modules\r\ndist\r\n.env\r\n.DS_Store\r\ncoverage\r\n

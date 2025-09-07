@@ -1,0 +1,14 @@
+{
+  "name": "cctns",
+  "private": true,
+  "scripts": {
+    "server:dev": "npm run dev --prefix server",
+    "server:build": "npm run build --prefix server",
+    "server:start": "npm run start --prefix server",
+    "client:dev": "npm run dev --prefix client",
+    "client:build": "npm run build --prefix client",
+    "client:preview": "npm run preview --prefix client"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
